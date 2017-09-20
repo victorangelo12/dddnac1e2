@@ -7,16 +7,16 @@ import java.sql.SQLException;
 import br.com.fiap.ads.ddd.to.Veiculo;
 
 public class VeiculoDAO {
-		//INCLUIR VEICULO
+	// INCLUIR VEICULO
 	public void incluir(Veiculo veiculo) throws SQLException {
-		
+
 		Connection conn = null;
-		
+
 		try {
 
 			conn = ConnectionManager.getInstance().getConnection();
 
-			PreparedStatement stmtInsert = conn.prepareStatement("INSERT INTO TB_ALUNO"
+			PreparedStatement stmtInsert = conn.prepareStatement("INSERT INTO TB_VEICULO"
 					+ "(id_veiculo,modelo,placa,ano,motor)" + "VALUES" + "(sq_veiculo.NEXTVAL,?,?,?,?)");
 
 			stmtInsert.setString(1, veiculo.getModelo());
@@ -30,13 +30,13 @@ public class VeiculoDAO {
 			System.err.println("Erro ao inserir veiculo");
 
 		} finally {
-	
-				if (conn != null) // condição se tem uma conexão aberta
-					try {
+
+			if (conn != null) // condição se tem uma conexão aberta
+				try {
 					conn.close(); // fecha
-			} catch (SQLException e2) {
-				System.err.println("Erro ao fechar conexão");
-			}
+				} catch (SQLException e2) {
+					System.err.println("Erro ao fechar conexão");
+				}
 		}
 
 	}
