@@ -8,7 +8,7 @@ import br.com.fiap.ads.ddd.dao.VeiculoDAO;
 import br.com.fiap.ads.ddd.to.Veiculo;
 
 public class Main {
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws Exception {
 		Scanner tec = new Scanner(System.in);
 		
 		VeiculoBO veiculoBO = new VeiculoBO();
@@ -67,14 +67,14 @@ public class Main {
 				
 
 				System.out.println("Digite placa atual: ");
-				veiculo.setPlaca(tec.next());
+				String placaAtual = tec.next();
 				
 				
 				System.out.println("Digite nova placa: ");
-				veiculo.setPlaca(tec.next());
+				String placaAntiga = tec.next();
 		
 				//passar PLACA para o objeto BO
-				veiculoBO.alterar(veiculo);
+				veiculoBO.alterar(placaAtual, placaAntiga);
 
 				
 	}
