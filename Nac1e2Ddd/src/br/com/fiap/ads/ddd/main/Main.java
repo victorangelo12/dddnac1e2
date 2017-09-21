@@ -26,8 +26,8 @@ public class Main {
 
 			opcao = tec.nextInt();
 
-			switch (opcao) {
-			case 1:
+			switch (opcao) { 
+			case 1: //INCLUIR OPCAO 1
 
 				Veiculo veiculo = new Veiculo();
 
@@ -35,7 +35,7 @@ public class Main {
 				veiculo.setModelo(tec.next() + tec.nextLine());
 
 				System.out.println("Digite a placa: ");
-				veiculo.setPlaca(tec.next());
+				veiculo.setPlaca(tec.next().toUpperCase());
 
 				System.out.println("Digite o ano:");
 				veiculo.setAno(tec.nextInt());
@@ -46,7 +46,15 @@ public class Main {
 				VeiculoBO veiculoBO = new VeiculoBO();
 				veiculoBO.incluir(veiculo);
 				break;
-
+			
+			case 2: //EXCLUIR OPÇÃO 2
+				System.out.println("Digite a placa: ");
+				String placa = tec.next().toUpperCase();
+				
+				VeiculoBO veiculo2BO = new VeiculoBO();
+				veiculo2BO.excluir(placa);
+					
+				break;
 			default:
 				System.out.println("Opção Invalida");
 				break;
