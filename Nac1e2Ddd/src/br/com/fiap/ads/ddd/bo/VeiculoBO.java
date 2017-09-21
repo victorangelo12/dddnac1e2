@@ -18,5 +18,10 @@ public class VeiculoBO {
 		veiculoDAO.excluir(placa);
 		
 	}
+	
+	public void alterar (Veiculo placa){
+		VeiculoDAO veiculoDAO = new VeiculoDAO();
+		veiculoDAO.alterar(placa);
+	}
 }
 

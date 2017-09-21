@@ -12,6 +12,7 @@ public class Main {
 		Scanner tec = new Scanner(System.in);
 		
 		VeiculoBO veiculoBO = new VeiculoBO();
+		Veiculo veiculo = new Veiculo();
 
 		System.out.println(" *** BEM VINDO AO SISTEMA DE VEICULOS *** ");
 
@@ -31,7 +32,7 @@ public class Main {
 			switch (opcao) { 
 			case 1: //INCLUIR OPCAO 1
 
-				Veiculo veiculo = new Veiculo();
+			
 
 				System.out.println("Digite o modelo do veiculo: ");
 				veiculo.setModelo(tec.next() + tec.nextLine());
@@ -60,8 +61,24 @@ public class Main {
 			default:
 				System.out.println("Opção Invalida");
 				break;
-			}
-		}
+		
+			
+			case 3: //ALTERAR OPÇÃO 3
+				
 
+				System.out.println("Digite placa atual: ");
+				veiculo.setPlaca(tec.next());
+				
+				
+				System.out.println("Digite nova placa: ");
+				veiculo.setPlaca(tec.next());
+		
+				//passar PLACA para o objeto BO
+				veiculoBO.alterar(veiculo);
+
+				
+	}
+}
+		
 	}
 }

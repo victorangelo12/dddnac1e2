@@ -64,7 +64,56 @@ public class VeiculoDAO {
 			System.err.println("Erro ao deletar veiculo");
 		}
 		
-		
+	}
+		//ALTERAR VEICULO
+		public void alterar(Veiculo placa) {
+			Connection conn = null;
+
+			//
+			// SQL
+			//
+			try {
+
+				// pega a conexao como banco
+				conn = ConnectionManager.getInstance().getConnection();
+
+				PreparedStatement stmtInsert = conn.prepareStatement("UPDATE TB_VEICULO SET PLACA=? WHERE PLACA=?");
+
+				// Define os valores dos parametros
+				stmtInsert.setString(1,placa.getPlaca());
+				stmtInsert.setString(2,placa.getPlaca());
+				
+				
+
+				// executa a SQL
+				stmtInsert.executeUpdate();// execucao com commit
+
+			} catch (SQLException e) {
+
+				System.err.println("Erro ao inserir nova placa");
+
+				e.printStackTrace();
+
+			} finally {
+
+				if (conn != null) {// se ha uma conexao, fecha ela
+					try {
+
+						//
+						// Fecha a conexao com o SGBDR
+						//
+						conn.close();
+
+					} catch (SQLException e) {
+
+						e.printStackTrace();
+
+					}
+				}
+
+			}
+
+		}
 		
 	}
-}
+
