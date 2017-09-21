@@ -24,12 +24,14 @@ public class VeiculoDAO {
 			stmtInsert.setInt(3, veiculo.getAno());
 			stmtInsert.setDouble(4, veiculo.getMotor());
 			
-			
+			if (veiculo.getPlaca().equalsIgnoreCase(veiculo.getPlaca())) {
+				System.out.println();
+			}
 
 			stmtInsert.executeUpdate();
 
 		} catch (SQLException e) {
-			System.err.println("Erro ao inserir veiculo");
+			System.err.println("Erro ao inserir veiculo"); //modificar 
 
 		} finally {
 

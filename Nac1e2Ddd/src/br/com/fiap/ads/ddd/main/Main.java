@@ -10,6 +10,8 @@ import br.com.fiap.ads.ddd.to.Veiculo;
 public class Main {
 	public static void main(String[] args) throws SQLException {
 		Scanner tec = new Scanner(System.in);
+		
+		VeiculoBO veiculoBO = new VeiculoBO();
 
 		System.out.println(" *** BEM VINDO AO SISTEMA DE VEICULOS *** ");
 
@@ -43,16 +45,16 @@ public class Main {
 				System.out.println("Digite o motor:");
 				veiculo.setMotor(tec.nextDouble());
 
-				VeiculoBO veiculoBO = new VeiculoBO();
-				veiculoBO.incluir(veiculo);
+				
+				veiculoBO.incluir(veiculo); //TRY
 				break;
 			
 			case 2: //EXCLUIR OPÇÃO 2
+			
 				System.out.println("Digite a placa: ");
 				String placa = tec.next().toUpperCase();
 				
-				VeiculoBO veiculo2BO = new VeiculoBO();
-				veiculo2BO.excluir(placa);
+				veiculoBO.excluir(placa);
 					
 				break;
 			default:
