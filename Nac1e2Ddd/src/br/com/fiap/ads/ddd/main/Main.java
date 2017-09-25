@@ -24,14 +24,14 @@ import br.com.fiap.ads.ddd.to.Veiculo;
 public class Main {
 	public static void main(String[] args) throws Exception {
 		Scanner tec = new Scanner(System.in);
-		
+
 		VeiculoBO veiculoBO = new VeiculoBO();
 		Veiculo veiculo = new Veiculo();
 
 		System.out.println(" *** BEM VINDO AO SISTEMA DE VEICULOS *** ");
 
 		int opcao = 1;
-		while (opcao != 6) { //opções
+		while (opcao != 6) { // opções
 			System.out.println("Escolha uma opção:");
 			System.out.println("[1] Incluir ");
 			System.out.println("[2] Excluir ");
@@ -43,14 +43,13 @@ public class Main {
 
 			opcao = tec.nextInt();
 
-			switch (opcao) { 
-			case 1: //INCLUIR OPCAO 1
+			switch (opcao) {
+			case 1: // INCLUIR OPCAO 1
 				/**
 				 * Main incluir veiculo
+				 * 
 				 * @see VeiculoBO - incluir
 				 */
-
-			
 
 				System.out.println("Digite o modelo do veiculo: ");
 				veiculo.setModelo(tec.next() + tec.nextLine());
@@ -64,102 +63,105 @@ public class Main {
 				System.out.println("Digite o motor:");
 				veiculo.setMotor(tec.nextDouble());
 
-				
-				veiculoBO.incluir(veiculo); //TRY
+				veiculoBO.incluir(veiculo); // TRY
 				break;
-				
-				/**
-				 * Main excluir veiculo
-				 * @see VeiculoBO - ecluir
-				 */
-			
-			case 2: //EXCLUIR OPÇÃO 2
-			
+
+			/**
+			 * Main excluir veiculo
+			 * 
+			 * @see VeiculoBO - ecluir
+			 */
+
+			case 2: // EXCLUIR OPÇÃO 2
+
 				System.out.println("Digite a placa: ");
 				String placa = tec.next().toUpperCase();
-				
+
 				veiculoBO.excluir(placa);
-					
+
 				break;
-				/**
-				 * Main Alterar veiculo
-				 * @see VeiculoBO - alterar
-				 */
-			
-			case 3: //ALTERAR OPÇÃO 3
-				
+			/**
+			 * Main Alterar veiculo
+			 * 
+			 * @see VeiculoBO - alterar
+			 */
+
+			case 3: // ALTERAR OPÇÃO 3
 
 				System.out.println("Digite placa atual: ");
 				String placaAtual = tec.next();
-				
-				
+
 				System.out.println("Digite nova placa: ");
 				String placaAntiga = tec.next();
-		
-				//passar PLACA para o objeto BO
+
+				// passar PLACA para o objeto BO
 				veiculoBO.alterar(placaAtual, placaAntiga);
 				break;
-				
-			case 4: //LISTAR OPÇÃO 4
-				
+
+			case 4: // LISTAR OPÇÃO 4
+
 				/**
 				 * Main Alterar veiculo
+				 * 
 				 * @see ListarBO
 				 */
 				Veiculo veiculoSelecionado = null;
-				
-				
+
 				try {
-					
-					
-					//cria o objeto que contem as regras para selecionar todas as turmas
+
+					// cria o objeto que contem as regras para selecionar todas
+					// as turmas
 					ListarBO turmaBO = new ListarBO();
 
-					//objeto que conterah as turmas cadastradas no sistema
+					// objeto que conterah as turmas cadastradas no sistema
 					List<Veiculo> veiculoList = turmaBO.selecionarTodas();
-								
-					//monta o menu 
+
+					// monta o menu
 					StringBuffer sb = new StringBuffer();
-					for(int i = 0; i < veiculoList.size(); i++){
-						
+					for (int i = 0; i < veiculoList.size(); i++) {
+
 						Veiculo t = veiculoList.get(i);
-						
-						System.out.println("\t["+ i +": " + t.getPlaca() + " - " + t.getModelo() + "/" + t.getAno()+" " + t.getMotor());			
+
+						System.out.println("\t[" + i + ": " + t.getPlaca() + " - " + t.getModelo() + "/" + t.getAno()
+								+ " " + t.getMotor());
 						sb.append(i).append(", ");
-						
+
 					}
-					
-					
-					System.out.print("\t["+sb.substring(0, sb.length()-2).toString()+"]: ");		
+
+					System.out.print("\t[" + sb.substring(0, sb.length() - 2).toString() + "]: ");
 					int veiculoSelecionadoIndex = tec.nextInt();
-				
+
 					tec.close();
-					
-					
+
 					veiculoSelecionado = veiculoList.get(veiculoSelecionadoIndex);
-					
-					
+
 				} catch (Exception e1) {
-								
-					//mensagem de erro exibida se nao for possivel obter a lista de turmas
+
+					// mensagem de erro exibida se nao for possivel obter a
+					// lista de turmas
 					System.err.println("ERRO - " + e1.getMessage());
 					System.exit(1);
-					
+
 				}
-				
+
 			default:
 				System.out.println("Opção Invalida");
 				break;
-				
-				case 5: //EXPORTAR
+
+			case 5: // EXPORTAR
+				exportar();
+			}
+
+		}
+	}
 
 	/**
 	 * Main Exportar veiculos
 	 */
 
-	private ListarDAO listarDAO;
+	private static ListarDAO listarDAO;
 
-	public void exportar() {
+	public static void exportar() {
 
 		List<Veiculo> veiculoLista = listarDAO.veiculos2017();
 		String caminho = "C:\\Users\\NicoleBono\\Downloads\\veiculos2017.csv";
@@ -189,5 +191,4 @@ public class Main {
 		}
 
 	}
-				case 6: //sair
 }
