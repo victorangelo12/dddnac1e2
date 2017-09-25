@@ -144,9 +144,9 @@ public class Main {
 					//mensagem de erro exibida se nao for possivel obter a lista de turmas
 					System.err.println("ERRO - " + e1.getMessage());
 					System.exit(1);
-					break;
-				
+					
 				}
+				
 			default:
 				System.out.println("Opção Invalida");
 				break;
@@ -189,4 +189,5 @@ public class Main {
 		}
 
 	}
+				case 6: //sair
 }
