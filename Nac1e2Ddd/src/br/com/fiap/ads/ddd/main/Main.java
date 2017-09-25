@@ -15,6 +15,12 @@ import br.com.fiap.ads.ddd.dao.ListarDAO;
 import br.com.fiap.ads.ddd.dao.VeiculoDAO;
 import br.com.fiap.ads.ddd.to.Veiculo;
 
+/**
+ * 
+ * @author Victor Angelo RM 77917 e Nicole Bono RM76188
+ *
+ */
+
 public class Main {
 	public static void main(String[] args) throws Exception {
 		Scanner tec = new Scanner(System.in);
@@ -25,7 +31,7 @@ public class Main {
 		System.out.println(" *** BEM VINDO AO SISTEMA DE VEICULOS *** ");
 
 		int opcao = 1;
-		while (opcao != 6) {
+		while (opcao != 6) { //opções
 			System.out.println("Escolha uma opção:");
 			System.out.println("[1] Incluir ");
 			System.out.println("[2] Excluir ");
@@ -39,6 +45,10 @@ public class Main {
 
 			switch (opcao) { 
 			case 1: //INCLUIR OPCAO 1
+				/**
+				 * Main incluir veiculo
+				 * @see VeiculoBO - incluir
+				 */
 
 			
 
@@ -57,6 +67,11 @@ public class Main {
 				
 				veiculoBO.incluir(veiculo); //TRY
 				break;
+				
+				/**
+				 * Main excluir veiculo
+				 * @see VeiculoBO - ecluir
+				 */
 			
 			case 2: //EXCLUIR OPÇÃO 2
 			
@@ -66,10 +81,10 @@ public class Main {
 				veiculoBO.excluir(placa);
 					
 				break;
-			default:
-				System.out.println("Opção Invalida");
-				break;
-		
+				/**
+				 * Main Alterar veiculo
+				 * @see VeiculoBO - alterar
+				 */
 			
 			case 3: //ALTERAR OPÇÃO 3
 				
@@ -87,6 +102,10 @@ public class Main {
 				
 			case 4: //LISTAR OPÇÃO 4
 				
+				/**
+				 * Main Alterar veiculo
+				 * @see ListarBO
+				 */
 				Veiculo veiculoSelecionado = null;
 				
 				
@@ -128,42 +147,46 @@ public class Main {
 					break;
 				
 				}
+			default:
+				System.out.println("Opção Invalida");
+				break;
 				
 				case 5: //EXPORTAR
-			
-				private ListarDAO listarDAO;
 
-				public void exportar() {
+	/**
+	 * Main Exportar veiculos
+	 */
 
-					List<Veiculo> veiculoLista = listarDAO.veiculos2017();
-					String caminho = "C:\\Users\\NicoleBono\\Downloads\\veiculos2017.csv";
-					FileWriter fileWriter = null;
-					
-					
-					PrintWriter printWriter = null;
-					try {
-						fileWriter = new FileWriter(caminho);
-						printWriter = new PrintWriter(fileWriter);
+	private ListarDAO listarDAO;
 
-						printWriter.println("Ano;" + "Placa;" + "Modelo;" + "Motor");
-						for (Veiculo veiculo : veiculoLista) {
-							printWriter.print(veiculo.getAno() + ";" + veiculo.getPlaca() + ";" + veiculo.getModelo() + ";"
-									+ veiculo.getMotor() + "\n");
-						}
-						System.out.println("Arquivos exportados com sucesso \n");
-					} catch (IOException e) {
-						// e.printStackTrace(); Logando p Dev
-						System.out.println("Ocorreu um problema com o arquivo");
-					} finally {
-						try {
-							printWriter.close();
-							fileWriter.close();
-						} catch (Exception e2) {
-							// e2.getMessage(); // Log p o Dev
-						}
-					}
+	public void exportar() {
 
-				}
+		List<Veiculo> veiculoLista = listarDAO.veiculos2017();
+		String caminho = "C:\\Users\\NicoleBono\\Downloads\\veiculos2017.csv";
+		FileWriter fileWriter = null;
+
+		PrintWriter printWriter = null;
+		try {
+			fileWriter = new FileWriter(caminho);
+			printWriter = new PrintWriter(fileWriter);
+
+			printWriter.println("Ano;" + "Placa;" + "Modelo;" + "Motor");
+			for (Veiculo veiculo : veiculoLista) {
+				printWriter.print(veiculo.getAno() + ";" + veiculo.getPlaca() + ";" + veiculo.getModelo() + ";"
+						+ veiculo.getMotor() + "\n");
 			}
-			
-				
+			System.out.println("Arquivos exportados com sucesso \n");
+		} catch (IOException e) {
+			// e.printStackTrace(); Logando p Dev
+			System.out.println("Ocorreu um problema com o arquivo");
+		} finally {
+			try {
+				printWriter.close();
+				fileWriter.close();
+			} catch (Exception e2) {
+				// e2.getMessage(); // Log p o Dev
+			}
+		}
+
+	}
+}

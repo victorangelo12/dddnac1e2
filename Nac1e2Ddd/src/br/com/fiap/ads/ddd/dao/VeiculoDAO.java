@@ -6,8 +6,19 @@ import java.sql.SQLException;
 
 import br.com.fiap.ads.ddd.to.Veiculo;
 
+/**
+ * 
+ * @author Victor Angelo RM 77917 e Nicole Bono RM76188 
+ *
+ */
+
 public class VeiculoDAO {
 	// INCLUIR VEICULO
+	/**
+	 * Inclui um veiculo no banco de dados 
+	 * @param veiculo(modelo,placa,ano,motor)
+	 * @throws SQLException
+	 */
 	public void incluir(Veiculo veiculo) throws SQLException {
 
 		Connection conn = null;
@@ -52,6 +63,11 @@ public class VeiculoDAO {
 	}
 
 	// EXCLUIR VEICULO
+	/**
+	 * Exclui um veiculo do banco de dados pela placa
+	 * @param placa
+	 * @exception SQLException
+	 */
 	public void excluir(String placa) {
 		Connection conn = null;
 		try {
@@ -81,6 +97,12 @@ public class VeiculoDAO {
 	}
 
 	// ALTERAR VEICULO
+	/**
+	 * Altera a placa do veiculo
+	 * @param placaAntiga
+	 * @param placaNova
+	 * @exception SQLException
+	 */
 	public void alterar(String placaAntiga, String placaNova) {
 		Connection conn = null;
 

@@ -5,7 +5,18 @@ import java.sql.SQLException;
 import br.com.fiap.ads.ddd.dao.VeiculoDAO;
 import br.com.fiap.ads.ddd.to.Veiculo;
 
+/**
+ * 
+ * @author Victor Angelo RM 77917 e Nicole Bono RM76188 
+ *
+ */
 public class VeiculoBO {
+	/**
+	 * Regra de negocio para incluir veiculo como não possui passa para DAO
+	 * @param veiculo
+	 * @throws SQLException
+	 * @see VeiculoDAO-Incluir
+	 */
 	
 	public void incluir(Veiculo veiculo) throws SQLException {
 
@@ -14,12 +25,24 @@ public class VeiculoBO {
 		
 		
 	}
+	/**
+	 * Regra de negocio para excluir veiculo, como não possui passa para o DAO
+	 * @param placa
+	 * @see VeiculoDAO-Excluir
+	 */
 	
 	public void excluir(String placa){
 		VeiculoDAO veiculoDAO = new VeiculoDAO();
 		veiculoDAO.excluir(placa);
 		
 	}
+	/**
+	 * Regra de negocio para Alterar placa veiculo
+	 * RN01 - A nova placa não pode ser igual a placa atual
+	 * RN02 - O número da placa não pode ser igual a placa antiga
+	 * @param placa
+	 * @see VeiculoDAO-Alterar
+	 */
 	
 	public void alterar (String placaAntiga ,String placaAtual) throws Exception{
 		VeiculoDAO veiculoDAO = new VeiculoDAO();

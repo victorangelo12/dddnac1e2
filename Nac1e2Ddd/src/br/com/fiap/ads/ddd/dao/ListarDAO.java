@@ -16,18 +16,15 @@ import br.com.fiap.ads.ddd.to.Veiculo;
 
 	/**
 	 * Classe DAO da entidade da entidade <code>Turma</code> no banco de dados.
-	 * 
-	 * @see br.com.fiap.ads.ddd.designpatterns.exemplos.dao1.to.Turma
 	 */
 public class ListarDAO {
 
 		/**
-		 * Retorna todas as turmas.
+		 * Retorna todos os Veiculos.
 		 * 
-		 * @return Um <code>List</code> de <code>Turma</code>.
+		 * @return Um <code>List</code> de <code>veiculo</code>.
 		 * @throws SQLException
 		 * @see java.util.List
-		 * @see br.com.fiap.ads.ddd.designpatterns.exemplos.dao1.to.Turma
 		 */
 		public List<Veiculo> getAll() throws SQLException {
 
