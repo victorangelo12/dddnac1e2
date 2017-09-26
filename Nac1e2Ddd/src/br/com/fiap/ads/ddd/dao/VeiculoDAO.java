@@ -24,42 +24,26 @@ public class VeiculoDAO {
 		Connection conn = null;
 
 		try {
-
 			conn = ConnectionManager.getInstance().getConnection();
 
-			PreparedStatement stmtInsert = conn.prepareStatement("INSERT INTO TB_VEICULO"
-					+ "(id_veiculo,modelo,placa,ano,motor)" + "VALUES" + "(sq_veiculo.NEXTVAL,?,?,?,?)");
+			PreparedStatement stmtInsert = conn.prepareStatement("INSERT INTO TB_VEICULO (id_veiculo,modelo,placa,ano,motor) VALUES (sq_veiculo.NEXTVAL,?,?,?,?)");
 			// define os valores do parametro
 			stmtInsert.setString(1, veiculo.getModelo());
-			try {
-				stmtInsert.setString(2, veiculo.getPlaca());
-			} catch (SQLException e) {
-				throw new SQLException("Placa já inserida"); //mdf
-			}
-			
+			stmtInsert.setString(2, veiculo.getPlaca());			
 			stmtInsert.setInt(3, veiculo.getAno());
 			stmtInsert.setDouble(4, veiculo.getMotor());
-
-			if (veiculo.getPlaca().equalsIgnoreCase(veiculo.getPlaca())) {
-				System.out.println();
-			}
-
 			stmtInsert.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new SQLException("Erro ao inserir veiculo"); // mdf
-			
-
+			throw new SQLException(); // mdf
 		} finally {
-
 			if (conn != null) // condição se tem uma conexão aberta
 				try {
 					conn.close(); // fecha
 				} catch (SQLException e2) {
-					System.err.println("Erro ao fechar conexão");
+					throw new SQLException();
 				}
 		}
-
 	}
 
 	// EXCLUIR VEICULO
@@ -103,7 +87,7 @@ public class VeiculoDAO {
 	 * @param placaNova
 	 * @exception SQLException
 	 */
-	public void alterar(String placaAntiga, String placaNova) {
+	public void alterar(String placaAntiga, String placaNova) throws SQLException {
 		Connection conn = null;
 
 		//
@@ -124,11 +108,7 @@ public class VeiculoDAO {
 			stmtInsert.executeUpdate();// execucao com commit
 
 		} catch (SQLException e) {
-
-			System.err.println("Erro ao inserir nova placa");
-
-			e.printStackTrace();
-
+			throw new SQLException();
 		} finally {
 
 			if (conn != null) {// se ha uma conexao, fecha ela

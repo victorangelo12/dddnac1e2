@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,11 +23,116 @@ import br.com.fiap.ads.ddd.to.Veiculo;
  */
 
 public class Main {
-	public static void main(String[] args) throws Exception {
-		Scanner tec = new Scanner(System.in);
 
+	private static Veiculo veiculo = new Veiculo();
+	private static Scanner tec = new Scanner(System.in);
+	
+	public static void exportarLista2017(){
+		ListarBO listarBo = new ListarBO();
+		List<Veiculo> veiculoLista;
+		String caminho = "D:/veiculos2017.csv";
+		FileWriter fileWriter = null;
+		PrintWriter printWriter = null;
+
+		try {
+			fileWriter = new FileWriter(caminho);
+			printWriter = new PrintWriter(fileWriter);
+			veiculoLista = listarBo.selecionaVeiculosAno2017();
+
+			printWriter.println("Ano;" + "Placa;" + "Modelo;" + "Motor");
+			for (Veiculo veiculo : veiculoLista) {
+				printWriter.print(veiculo.getAno() + ";" + veiculo.getPlaca() + ";" + veiculo.getModelo() + ";" + veiculo.getMotor() + "\n");
+			}
+			System.out.println("Arquivos exportados com sucesso" + System.lineSeparator());
+		}catch(SQLException e){
+			System.out.println("Ocorreu um problema com o banco de dados");
+		}catch(IOException e){
+			System.out.println("Ocorreu um problema ao criar o arquivo");
+		}finally {
+			try {
+				printWriter.close();
+				fileWriter.close();
+			} catch (IOException e) {
+				System.out.println("Ocorreu um problema ao criar o arquivo");
+			}
+		}
+
+	}
+
+	public static void listarTodosOsVeiculos(){
+		ListarBO listarBo = new ListarBO();
+		
+		try {
+			ArrayList<Veiculo> listaVeiculos = listarBo.selecionarTodas();
+			for(Veiculo i : listaVeiculos){
+				String placaNumeros = i.getPlaca().substring(3, 7);
+				String placaLetras = i.getPlaca().substring(0, 3);
+				System.out.println(placaLetras + "-" + placaNumeros + " - " + i.getModelo() + "/" + i.getAno() + " " + i.getMotor());
+			}
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um problema com o banco de dados");
+		}
+	}
+	
+	/**
+	 * Metodo para incluir veiculo.
+	 * @see VeiculoBO - incluir
+	 */
+	public static void incluirVeiculo(){
 		VeiculoBO veiculoBO = new VeiculoBO();
-		Veiculo veiculo = new Veiculo();
+		
+		System.out.println("Digite o modelo do veiculo: ");
+		veiculo.setModelo(tec.next() + tec.nextLine());
+
+		System.out.println("Digite a placa: ");
+		veiculo.setPlaca(tec.next().toUpperCase());
+
+		System.out.println("Digite o ano:");
+		veiculo.setAno(tec.nextInt());
+
+		System.out.println("Digite o motor:");
+		veiculo.setMotor(tec.nextDouble());
+
+		try {
+			veiculoBO.incluir(veiculo);
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um problema com o banco de dados");
+		}
+	}
+	
+	/**
+	 * Metodo para excluir veiculo
+	 * 
+	 * @see VeiculoBO - ecluir
+	 */
+	public static void excluirVeiculo(){
+		VeiculoBO veiculoBo = new VeiculoBO();
+		System.out.println("Digite a placa: ");
+		String placa = tec.next().toUpperCase();
+
+		veiculoBo.excluir(placa);
+	}
+	
+	/**
+	 * Main Alterar veiculo
+	 * @see VeiculoBO - alterar
+	 */
+	public static void alterarVeiculo(){
+		VeiculoBO veiculoBo = new VeiculoBO();
+		System.out.println("Digite placa atual: ");
+		String placaAtual = tec.next();
+
+		System.out.println("Digite nova placa: ");
+		String placaAntiga = tec.next();
+
+		// passar PLACA para o objeto BO
+		try {
+			veiculoBo.alterar(placaAtual, placaAntiga);
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um problema com o banco de dados");
+		}
+	}
+	public static void main(String[] args){
 
 		System.out.println(" *** BEM VINDO AO SISTEMA DE VEICULOS *** ");
 
@@ -44,151 +150,27 @@ public class Main {
 			opcao = tec.nextInt();
 
 			switch (opcao) {
-			case 1: // INCLUIR OPCAO 1
-				/**
-				 * Main incluir veiculo
-				 * 
-				 * @see VeiculoBO - incluir
-				 */
-
-				System.out.println("Digite o modelo do veiculo: ");
-				veiculo.setModelo(tec.next() + tec.nextLine());
-
-				System.out.println("Digite a placa: ");
-				veiculo.setPlaca(tec.next().toUpperCase());
-
-				System.out.println("Digite o ano:");
-				veiculo.setAno(tec.nextInt());
-
-				System.out.println("Digite o motor:");
-				veiculo.setMotor(tec.nextDouble());
-
-				veiculoBO.incluir(veiculo); // TRY
+			case 1:
+				incluirVeiculo();
 				break;
-
-			/**
-			 * Main excluir veiculo
-			 * 
-			 * @see VeiculoBO - ecluir
-			 */
-
-			case 2: // EXCLUIR OPÇÃO 2
-
-				System.out.println("Digite a placa: ");
-				String placa = tec.next().toUpperCase();
-
-				veiculoBO.excluir(placa);
-
+			case 2:
+				excluirVeiculo();
 				break;
-			/**
-			 * Main Alterar veiculo
-			 * 
-			 * @see VeiculoBO - alterar
-			 */
-
 			case 3: // ALTERAR OPÇÃO 3
-
-				System.out.println("Digite placa atual: ");
-				String placaAtual = tec.next();
-
-				System.out.println("Digite nova placa: ");
-				String placaAntiga = tec.next();
-
-				// passar PLACA para o objeto BO
-				veiculoBO.alterar(placaAtual, placaAntiga);
+				alterarVeiculo();
 				break;
-
-			case 4: // LISTAR OPÇÃO 4
-
-				/**
-				 * Main Alterar veiculo
-				 * 
-				 * @see ListarBO
-				 */
-				Veiculo veiculoSelecionado = null;
-
-				try {
-
-					// cria o objeto que contem as regras para selecionar todas
-					// as turmas
-					ListarBO turmaBO = new ListarBO();
-
-					// objeto que conterah as turmas cadastradas no sistema
-					List<Veiculo> veiculoList = turmaBO.selecionarTodas();
-
-					// monta o menu
-					StringBuffer sb = new StringBuffer();
-					for (int i = 0; i < veiculoList.size(); i++) {
-
-						Veiculo t = veiculoList.get(i);
-
-						System.out.println("\t[" + i + ": " + t.getPlaca() + " - " + t.getModelo() + "/" + t.getAno()
-								+ " " + t.getMotor());
-						sb.append(i).append(", ");
-
-					}
-
-					System.out.print("\t[" + sb.substring(0, sb.length() - 2).toString() + "]: ");
-					int veiculoSelecionadoIndex = tec.nextInt();
-
-					tec.close();
-
-					veiculoSelecionado = veiculoList.get(veiculoSelecionadoIndex);
-
-				} catch (Exception e1) {
-
-					// mensagem de erro exibida se nao for possivel obter a
-					// lista de turmas
-					System.err.println("ERRO - " + e1.getMessage());
-					System.exit(1);
-
-				}
-
+			case 4:
+				listarTodosOsVeiculos();
+				break;
+			case 5:
+				exportarLista2017();
+				break;
 			default:
 				System.out.println("Opção Invalida");
 				break;
-
-			case 5: // EXPORTAR
-				exportar();
-			}
-
-		}
-	}
-
-	/**
-	 * Main Exportar veiculos
-	 */
-
-	private static ListarDAO listarDAO;
-
-	public static void exportar() {
-
-		List<Veiculo> veiculoLista = listarDAO.veiculos2017();
-		String caminho = "C:\\Users\\NicoleBono\\Downloads\\veiculos2017.csv";
-		FileWriter fileWriter = null;
-
-		PrintWriter printWriter = null;
-		try {
-			fileWriter = new FileWriter(caminho);
-			printWriter = new PrintWriter(fileWriter);
-
-			printWriter.println("Ano;" + "Placa;" + "Modelo;" + "Motor");
-			for (Veiculo veiculo : veiculoLista) {
-				printWriter.print(veiculo.getAno() + ";" + veiculo.getPlaca() + ";" + veiculo.getModelo() + ";"
-						+ veiculo.getMotor() + "\n");
-			}
-			System.out.println("Arquivos exportados com sucesso \n");
-		} catch (IOException e) {
-			// e.printStackTrace(); Logando p Dev
-			System.out.println("Ocorreu um problema com o arquivo");
-		} finally {
-			try {
-				printWriter.close();
-				fileWriter.close();
-			} catch (Exception e2) {
-				// e2.getMessage(); // Log p o Dev
 			}
 		}
+
 
 	}
 }
