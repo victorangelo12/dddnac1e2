@@ -144,7 +144,7 @@ public class Main {
 			System.out.println("[3] Alterar ");
 			System.out.println("[4] Listar ");
 			System.out.println("[5] Exportar ");
-			System.out.println("[6] Incluir");
+			System.out.println("[6] Sair");
 			System.out.print("Digite aqui a opção desejada: ");
 
 			opcao = tec.nextInt();
@@ -165,6 +165,13 @@ public class Main {
 			case 5:
 				exportarLista2017();
 				break;
+				
+			case 6:
+				System.out.println("** SAINDO DO SISTEMA ** ");
+				tec.close();
+				System.exit(0);
+				break;
+				
 			default:
 				System.out.println("Opção Invalida");
 				break;

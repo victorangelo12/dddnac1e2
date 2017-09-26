@@ -6,7 +6,8 @@ import java.sql.SQLException;
 
 public class ConnectionManager {
 	// instancia unica
-
+	
+	
 	private static ConnectionManager instance;
 
 	private ConnectionManager() throws ClassNotFoundException {
